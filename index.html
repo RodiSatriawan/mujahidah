@@ -7,10 +7,12 @@
   <script>
     (function () {
       var targetUrl = "https://script.google.com/macros/s/AKfycbzzpO6VU80xt6gwNMHFGi-EqyZh7K57b0MQoOl6GDavW3HBoawB7pjpVK_PMpgUTmA/exec";
-      var isMobileDevice = /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent);
-      var isDesktopScaledViewport = window.innerWidth >= 768 || screen.width >= 768 && isMobileDevice;
+      var hasTouch = ("ontouchstart" in window) || (navigator.maxTouchPoints && navigator.maxTouchPoints > 0);
+      var isMobileUa = /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent);
+      var isTouchDevice = Boolean(hasTouch || isMobileUa);
+      var isDesktopViewOnSmallScreen = Math.max(window.innerWidth || 0, screen.width || 0) >= 768;
 
-      if (isMobileDevice && isDesktopScaledViewport && window.top === window.self) {
+      if (isTouchDevice && isDesktopViewOnSmallScreen && window.top === window.self) {
         window.location.replace(targetUrl);
       }
     })();

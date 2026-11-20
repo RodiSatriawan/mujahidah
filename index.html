@@ -4,6 +4,19 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Profil &amp; Capaian - Mujahidah Shalihah</title>
+  <script>
+    (function () {
+      var targetUrl = "https://script.google.com/macros/s/AKfycbzzpO6VU80xt6gwNMHFGi-EqyZh7K57b0MQoOl6GDavW3HBoawB7pjpVK_PMpgUTmA/exec";
+      var hasTouch = ("ontouchstart" in window) || (navigator.maxTouchPoints && navigator.maxTouchPoints > 0);
+      var isMobileUa = /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent);
+      var isTouchDevice = Boolean(hasTouch || isMobileUa);
+      var isDesktopViewOnSmallScreen = Math.max(window.innerWidth || 0, screen.width || 0) >= 768;
+
+      if (isTouchDevice && isDesktopViewOnSmallScreen && window.top === window.self) {
+        window.location.replace(targetUrl);
+      }
+    })();
+  </script>
   <style>
     * {
       box-sizing: border-box;
@@ -17,7 +30,7 @@
       height: 100%;
       overflow: hidden;
       background-color: #fdf4f8;
-      -webkit-tap-highlight-color: transparent;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     }
 
     .frame-wrapper {
@@ -32,7 +45,25 @@
       height: 100%;
       border: none;
       display: block;
-      touch-action: manipulation;
+    }
+
+    .direct-open-btn {
+      position: fixed;
+      right: 14px;
+      bottom: 14px;
+      z-index: 9999;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 13px;
+      border-radius: 999px;
+      background-color: rgba(30, 41, 59, 0.9);
+      color: #ffffff;
+      font-size: 12px;
+      font-weight: 600;
+      text-decoration: none;
+      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.24);
+      backdrop-filter: blur(6px);
     }
   </style>
 </head>
@@ -41,13 +72,23 @@
     <iframe
       id="mujahidahFrame"
       class="apps-script-frame"
-      src="https://script.google.com/macros/s/AKfycbzzpO6VU80xt6gwNMHFGi-EqyZh7K57b0MQoOl6GDavW3HBoawB7pjpVK_PMpgUTmA/exec?v=4"
+      src="https://script.google.com/macros/s/AKfycbzzpO6VU80xt6gwNMHFGi-EqyZh7K57b0MQoOl6GDavW3HBoawB7pjpVK_PMpgUTmA/exec"
       title="Profil &amp; Capaian - Mujahidah Shalihah"
       sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-popups-to-escape-sandbox allow-modals"
       allow="clipboard-read; clipboard-write; fullscreen"
       loading="eager"
       referrerpolicy="no-referrer-when-downgrade"
     ></iframe>
+
+    <a
+      class="direct-open-btn"
+      href="https://script.google.com/macros/s/AKfycbzzpO6VU80xt6gwNMHFGi-EqyZh7K57b0MQoOl6GDavW3HBoawB7pjpVK_PMpgUTmA/exec"
+      target="_top"
+      rel="noopener noreferrer"
+    >
+      <span>Buka Penuh</span>
+      <span aria-hidden="true">↗</span>
+    </a>
   </div>
 </body>
 </html>

@@ -18,7 +18,6 @@
       overflow: hidden;
       background-color: #fdf4f8;
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      -webkit-tap-highlight-color: transparent;
     }
 
     .frame-wrapper {
@@ -33,7 +32,42 @@
       height: 100%;
       border: none;
       display: block;
-      touch-action: manipulation;
+    }
+
+    .mobile-desktop-notice {
+      display: none;
+      position: fixed;
+      top: 12px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10000;
+      width: calc(100% - 24px);
+      max-width: 540px;
+      padding: 10px 14px;
+      border-radius: 12px;
+      background: rgba(15, 23, 42, 0.94);
+      color: #ffffff;
+      font-size: 12px;
+      line-height: 1.4;
+      box-shadow: 0 8px 24px rgba(15, 23, 42, 0.28);
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .mobile-desktop-notice.show {
+      display: flex;
+    }
+
+    .mobile-desktop-notice a {
+      flex-shrink: 0;
+      padding: 7px 12px;
+      border-radius: 8px;
+      background: #ec4899;
+      color: #ffffff;
+      font-weight: 700;
+      text-decoration: none;
+      white-space: nowrap;
     }
 
     .direct-open-btn {
@@ -53,17 +87,17 @@
       text-decoration: none;
       box-shadow: 0 4px 12px rgba(15, 23, 42, 0.24);
       backdrop-filter: blur(6px);
-      touch-action: manipulation;
-      transition: transform 0.15s ease, background-color 0.15s ease;
-    }
-
-    .direct-open-btn:hover {
-      background-color: #0f172a;
-      transform: translateY(-1px);
     }
   </style>
 </head>
 <body>
+  <div id="mobileDesktopNotice" class="mobile-desktop-notice">
+    <span>Mode Desktop di HP membatasi klik tab di dalam frame. Buka mode penuh agar semua tab bisa diklik:</span>
+    <a href="https://script.google.com/macros/s/AKfycbzzpO6VU80xt6gwNMHFGi-EqyZh7K57b0MQoOl6GDavW3HBoawB7pjpVK_PMpgUTmA/exec">
+      Buka Penuh
+    </a>
+  </div>
+
   <div class="frame-wrapper">
     <iframe
       id="mujahidahFrame"
@@ -81,11 +115,23 @@
       href="https://script.google.com/macros/s/AKfycbzzpO6VU80xt6gwNMHFGi-EqyZh7K57b0MQoOl6GDavW3HBoawB7pjpVK_PMpgUTmA/exec"
       target="_blank"
       rel="noopener noreferrer"
-      title="Buka halaman langsung di tab baru jika klik tab di dalam frame terblokir browser"
     >
       <span>Buka Penuh</span>
       <span aria-hidden="true">↗</span>
     </a>
   </div>
+
+  <script>
+    (function () {
+      var isMobileDevice = /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent);
+      var isDesktopScaledViewport = window.innerWidth >= 768;
+      if (isMobileDevice && isDesktopScaledViewport) {
+        var notice = document.getElementById('mobileDesktopNotice');
+        if (notice) {
+          notice.classList.add('show');
+        }
+      }
+    })();
+  </script>
 </body>
 </html>
